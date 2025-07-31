@@ -15,7 +15,7 @@ function Roles() {
   const [editRoleId, setEditRoleId] = useState(null);
 
   const fetchRoles = async () => {
-    const res = await axios.get("http://localhost:5269/api/Roles");
+    const res = await axios.get("https://localhost:7246/api/Roles");
     setRoles(res.data.data || res.data);
   };
 
@@ -32,9 +32,9 @@ function Roles() {
 
     try {
       if (isEdit) {
-        await axios.put(`http://localhost:5269/api/Roles/${editRoleId}`, payload);
+        await axios.put(`https://localhost:7246/api/Roles/${editRoleId}`, payload);
       } else {
-        await axios.post("http://localhost:5269/api/Roles", payload);
+        await axios.post("https://localhost:7246/api/Roles", payload);
       }
 
       fetchRoles();
@@ -66,7 +66,7 @@ function Roles() {
 
     if (result.isConfirmed) {
       try {
-        await axios.delete(`http://localhost:5269/api/Roles/${id}`);
+        await axios.delete(`https://localhost:7246/api/Roles/${id}`);
         fetchRoles();
         Swal.fire("Deleted!", "Role has been deleted.", "success");
       } catch (err) {

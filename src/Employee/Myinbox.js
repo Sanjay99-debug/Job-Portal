@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -14,14 +15,14 @@ function Myinbox() {
   const [editingMessage, setEditingMessage] = useState(null);
   const [editText, setEditText] = useState("");
 
-
   const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
   // Fetch company list from backend
   useEffect(() => {
-    axios.get(`${API_BASE}/api/Companyjpcs`)
-      .then(res => setCompanyOptions(res.data.data))
-      .catch(err => console.error("Error fetching companies", err));
+    axios
+      .get(`${API_BASE}/api/Companyjpcs`)
+      .then((res) => setCompanyOptions(res.data.data))
+      .catch((err) => console.error("Error fetching companies", err));
   }, []);
 
   // Optionally fetch existing messages from DB here (currently using local messages)
@@ -41,7 +42,7 @@ function Myinbox() {
       const newMessage = {
         id: messages.length + 1,
         company: selectedCompany,
-        message: messageText
+        message: messageText,
       };
       setMessages([newMessage, ...messages]);
       setSelectedCompany("");
@@ -50,26 +51,25 @@ function Myinbox() {
 
       // ✅ SweetAlert success popup
       Swal.fire({
-        icon: 'success',
-        title: 'Message Sent!',
-        text: 'Your message was sent successfully.',
+        icon: "success",
+        title: "Message Sent!",
+        text: "Your message was sent successfully.",
         timer: 2000,
-        showConfirmButton: false
+        showConfirmButton: false,
       });
     } else {
       // Optional: Show warning if fields are empty
       Swal.fire({
-        icon: 'warning',
-        title: 'Incomplete',
-        text: 'Please select a company and enter a message.',
+        icon: "warning",
+        title: "Incomplete",
+        text: "Please select a company and enter a message.",
       });
     }
   };
 
-
   const handleDownload = () => {
     const header = "Company,Message\n";
-    const csv = messages.map(c => `${c.company},${c.message}`).join("\n");
+    const csv = messages.map((c) => `${c.company},${c.message}`).join("\n");
     const blob = new Blob([header + csv], { type: "text/csv" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
@@ -77,12 +77,15 @@ function Myinbox() {
     link.click();
   };
 
-  const filteredMessages = messages.filter(c =>
+  const filteredMessages = messages.filter((c) =>
     c.company.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const startIndex = (currentPage - 1) * pageSize;
-  const paginatedMessages = filteredMessages.slice(startIndex, startIndex + pageSize);
+  const paginatedMessages = filteredMessages.slice(
+    startIndex,
+    startIndex + pageSize
+  );
   const totalPages = Math.ceil(filteredMessages.length / pageSize);
 
   return (
@@ -91,7 +94,10 @@ function Myinbox() {
         <i className="bi bi-envelope-fill me-2 text-success"></i>My Inbox
       </h2>
       <div className="mb-3">
-        <button className="btn btn-primary" onClick={() => setShowSendModal(true)}>
+        <button
+          className="btn btn-primary"
+          onClick={() => setShowSendModal(true)}
+        >
           <i className="bi bi-send"></i> Send Message
         </button>
       </div>
@@ -103,7 +109,7 @@ function Myinbox() {
             className="form-control"
             placeholder="Search company..."
             value={searchTerm}
-            onChange={e => {
+            onChange={(e) => {
               setSearchTerm(e.target.value);
               setCurrentPage(1);
             }}
@@ -119,7 +125,7 @@ function Myinbox() {
           <select
             className="form-select d-inline-block w-auto"
             value={pageSize}
-            onChange={e => {
+            onChange={(e) => {
               setPageSize(parseInt(e.target.value));
               setCurrentPage(1);
             }}
@@ -135,7 +141,7 @@ function Myinbox() {
       {/* Message Cards View */}
       <div className="row">
         {paginatedMessages.length > 0 ? (
-          paginatedMessages.map(c => (
+          paginatedMessages.map((c) => (
             <div key={c.id} className="col-md-6 mb-3">
               <div className="card shadow-sm border-start border-4 border-primary">
                 <div className="card-body">
@@ -157,18 +163,24 @@ function Myinbox() {
                         className="btn btn-sm btn-outline-danger"
                         onClick={() => {
                           Swal.fire({
-                            title: 'Are you sure?',
-                            text: 'This message will be permanently deleted!',
-                            icon: 'warning',
+                            title: "Are you sure?",
+                            text: "This message will be permanently deleted!",
+                            icon: "warning",
                             showCancelButton: true,
-                            confirmButtonColor: '#d33',
-                            cancelButtonColor: '#6c757d',
-                            confirmButtonText: 'Yes, delete it!',
-                            cancelButtonText: 'Cancel'
+                            confirmButtonColor: "#d33",
+                            cancelButtonColor: "#6c757d",
+                            confirmButtonText: "Yes, delete it!",
+                            cancelButtonText: "Cancel",
                           }).then((result) => {
                             if (result.isConfirmed) {
-                              setMessages(prev => prev.filter(m => m.id !== c.id));
-                              Swal.fire('Deleted!', 'Message has been deleted.', 'success');
+                              setMessages((prev) =>
+                                prev.filter((m) => m.id !== c.id)
+                              );
+                              Swal.fire(
+                                "Deleted!",
+                                "Message has been deleted.",
+                                "success"
+                              );
                             }
                           });
                         }}
@@ -188,14 +200,18 @@ function Myinbox() {
         )}
       </div>
 
-
-
       {/* Pagination */}
       <nav>
         <ul className="pagination justify-content-center">
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-            <li key={page} className={`page-item ${currentPage === page ? "active" : ""}`}>
-              <button className="page-link" onClick={() => setCurrentPage(page)}>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <li
+              key={page}
+              className={`page-item ${currentPage === page ? "active" : ""}`}
+            >
+              <button
+                className="page-link"
+                onClick={() => setCurrentPage(page)}
+              >
                 {page}
               </button>
             </li>
@@ -206,23 +222,32 @@ function Myinbox() {
       {/* Send Message Modal */}
       {showSendModal && (
         <>
-          <div className="modal fade show" style={{ display: "block" }} tabIndex="-1">
+          <div
+            className="modal fade show"
+            style={{ display: "block" }}
+            tabIndex="-1"
+          >
             <div className="modal-dialog">
               <div className="modal-content shadow">
                 <div className="modal-header">
                   <h5 className="modal-title">Send New Message</h5>
-                  <button className="btn-close" onClick={() => setShowSendModal(false)}></button>
+                  <button
+                    className="btn-close"
+                    onClick={() => setShowSendModal(false)}
+                  ></button>
                 </div>
                 <div className="modal-body">
                   <label>Select Company:</label>
                   <select
                     className="form-select mb-3"
                     value={selectedCompany}
-                    onChange={e => setSelectedCompany(e.target.value)}
+                    onChange={(e) => setSelectedCompany(e.target.value)}
                   >
                     <option value="">-- Select Company --</option>
                     {companyOptions.map((c, i) => (
-                      <option key={i} value={c.companyName}>{c.companyName}</option>
+                      <option key={i} value={c.companyName}>
+                        {c.companyName}
+                      </option>
                     ))}
                   </select>
 
@@ -232,12 +257,22 @@ function Myinbox() {
                     rows={4}
                     placeholder="Enter your message..."
                     value={messageText}
-                    onChange={e => setMessageText(e.target.value)}
+                    onChange={(e) => setMessageText(e.target.value)}
                   ></textarea>
                 </div>
                 <div className="modal-footer">
-                  <button className="btn btn-secondary" onClick={() => setShowSendModal(false)}>Cancel</button>
-                  <button className="btn btn-primary" onClick={handleSendMessage}>Send</button>
+                  <button
+                    className="btn btn-secondary"
+                    onClick={() => setShowSendModal(false)}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="btn btn-primary"
+                    onClick={handleSendMessage}
+                  >
+                    Send
+                  </button>
                 </div>
               </div>
             </div>
@@ -248,12 +283,19 @@ function Myinbox() {
 
       {editingMessage && (
         <>
-          <div className="modal fade show" style={{ display: "block" }} tabIndex="-1">
+          <div
+            className="modal fade show"
+            style={{ display: "block" }}
+            tabIndex="-1"
+          >
             <div className="modal-dialog">
               <div className="modal-content shadow">
                 <div className="modal-header">
                   <h5 className="modal-title">Edit Message</h5>
-                  <button className="btn-close" onClick={() => setEditingMessage(null)}></button>
+                  <button
+                    className="btn-close"
+                    onClick={() => setEditingMessage(null)}
+                  ></button>
                 </div>
                 <div className="modal-body">
                   <label>Update Message:</label>
@@ -261,16 +303,21 @@ function Myinbox() {
                     className="form-control"
                     rows={4}
                     value={editText}
-                    onChange={e => setEditText(e.target.value)}
+                    onChange={(e) => setEditText(e.target.value)}
                   ></textarea>
                 </div>
                 <div className="modal-footer">
-                  <button className="btn btn-secondary" onClick={() => setEditingMessage(null)}>Cancel</button>
+                  <button
+                    className="btn btn-secondary"
+                    onClick={() => setEditingMessage(null)}
+                  >
+                    Cancel
+                  </button>
                   <button
                     className="btn btn-success"
                     onClick={() => {
-                      setMessages(prev =>
-                        prev.map(msg =>
+                      setMessages((prev) =>
+                        prev.map((msg) =>
                           msg.id === editingMessage.id
                             ? { ...msg, message: editText }
                             : msg
@@ -288,7 +335,6 @@ function Myinbox() {
           <div className="modal-backdrop fade show"></div>
         </>
       )}
-
     </div>
   );
 }
