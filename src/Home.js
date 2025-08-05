@@ -13,7 +13,7 @@ function Home() {
       <div className="container">
         <div className="text-center mb-5">
           <h1 className="display-4 fw-bold text-dark">
-            <span role="img" aria-label="wave">👋</span> Welcome to <span className="text-primary">VivS Infotech</span>
+            <span role="img" aria-label="wave">👋</span> Welcome to <span className="text-primary">Job Portal.SS</span>
           </h1>
           <p className="fs-5 text-secondary">
             Your career starts here — discover jobs or hire talent easily.

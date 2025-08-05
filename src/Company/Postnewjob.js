@@ -21,7 +21,7 @@ function Postnewjob() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
 
-  const apiUrl = "http://localhost:5269/api/Postjobs";
+  const apiUrl = "https://localhost:7246/api/Postjobs";
 
   const clearForm = () => {
     setId(0);

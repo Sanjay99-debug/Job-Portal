@@ -8,7 +8,9 @@ function Feedbackreport() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(3);
 
-  const API_BASE = process.env.REACT_APP_API_BASE_URL || "http://localhost:5269";
+  const API_BASE =
+    process.env.REACT_APP_API_BASE_URL ||
+    "https://localhost:7246/api/Feedbacks";
 
   useEffect(() => {
     fetchFeedbacks();
@@ -17,27 +19,28 @@ function Feedbackreport() {
   const fetchFeedbacks = async () => {
     try {
       const response = await axios.get(`${API_BASE}/api/Feedbacks`);
-      setFeedbacks(response.data.data); 
+      setFeedbacks(response.data.data);
     } catch (error) {
       console.error("Error fetching feedbacks:", error);
     }
   };
 
-
-  const filteredFeedbacks = (feedbacks || []).filter(fb =>
+  const filteredFeedbacks = (feedbacks || []).filter((fb) =>
     fb.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-
   const startIndex = (currentPage - 1) * pageSize;
-  const paginatedFeedbacks = filteredFeedbacks.slice(startIndex, startIndex + pageSize);
+  const paginatedFeedbacks = filteredFeedbacks.slice(
+    startIndex,
+    startIndex + pageSize
+  );
   const totalPages = Math.ceil(filteredFeedbacks.length / pageSize);
 
   const handleDownload = () => {
     const header = "ID,Name,Email,Comment,Rating\n";
-    const rows = filteredFeedbacks.map(fb =>
-      `${fb.id},${fb.name},${fb.email},${fb.comment},${fb.rating}`
-    ).join("\n");
+    const rows = filteredFeedbacks
+      .map((fb) => `${fb.id},${fb.name},${fb.email},${fb.comment},${fb.rating}`)
+      .join("\n");
 
     const blob = new Blob([header + rows], { type: "text/csv" });
     const link = document.createElement("a");
@@ -51,7 +54,13 @@ function Feedbackreport() {
     return (
       <>
         {[...Array(total)].map((_, i) => (
-          <span key={i} style={{ color: i < rating ? "#ffc107" : "#e4e5e9", fontSize: "1.2rem" }}>
+          <span
+            key={i}
+            style={{
+              color: i < rating ? "#ffc107" : "#e4e5e9",
+              fontSize: "1.2rem",
+            }}
+          >
             ★
           </span>
         ))}
@@ -73,7 +82,7 @@ function Feedbackreport() {
             className="form-control"
             placeholder="Search by email..."
             value={searchTerm}
-            onChange={e => {
+            onChange={(e) => {
               setSearchTerm(e.target.value);
               setCurrentPage(1);
             }}
@@ -91,7 +100,7 @@ function Feedbackreport() {
           <select
             className="form-select d-inline-block w-auto"
             value={pageSize}
-            onChange={e => {
+            onChange={(e) => {
               setPageSize(parseInt(e.target.value));
               setCurrentPage(1);
             }}
@@ -116,7 +125,7 @@ function Feedbackreport() {
         </thead>
         <tbody>
           {paginatedFeedbacks.length > 0 ? (
-            paginatedFeedbacks.map(fb => (
+            paginatedFeedbacks.map((fb) => (
               <tr key={fb.id}>
                 <td>{fb.id}</td>
                 <td>{fb.name}</td>
@@ -127,7 +136,9 @@ function Feedbackreport() {
             ))
           ) : (
             <tr>
-              <td colSpan="5" className="text-center">No feedback found.</td>
+              <td colSpan="5" className="text-center">
+                No feedback found.
+              </td>
             </tr>
           )}
         </tbody>
@@ -135,9 +146,15 @@ function Feedbackreport() {
 
       <nav>
         <ul className="pagination justify-content-center">
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-            <li key={page} className={`page-item ${currentPage === page ? "active" : ""}`}>
-              <button className="page-link" onClick={() => setCurrentPage(page)}>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <li
+              key={page}
+              className={`page-item ${currentPage === page ? "active" : ""}`}
+            >
+              <button
+                className="page-link"
+                onClick={() => setCurrentPage(page)}
+              >
                 {page}
               </button>
             </li>

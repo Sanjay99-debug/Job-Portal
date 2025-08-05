@@ -51,7 +51,7 @@ function Dashboard() {
   return (
     <div className="container mt-5">
       <h2 className="mb-3">
-        <i className="bi bi-speedometer2 me-2 text-info fs-1"></i> Welcome to VivS Infotech
+        <i className="bi bi-speedometer2 me-2 text-info fs-1"></i> Welcome to Sanjay Infotech
       </h2>
       <p className="lead">Monitor your job portal activity and manage operations below.</p>
 
