@@ -165,7 +165,7 @@ function Header() {
         style={{ background: "linear-gradient(90deg, #343a40, #212529)" }}
       >
         <div className="container-fluid">
-          <Link className="navbar-brand fw-bold" to="/">
+          <Link className="navbar-brand fw-bold" to="/" >
             JobifySS
           </Link>
           <button
