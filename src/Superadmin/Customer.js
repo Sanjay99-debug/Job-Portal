@@ -355,8 +355,9 @@ function Customer() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
 
-                  <div className="mb-2">
-                    <label className="form-label d-block">Gender:</label>
+                  <fieldset className="custom-fieldset mb-2">
+                    <legend className="custom-legend">Gender:</legend>
+
                     <div className="form-check form-check-inline">
                       <input
                         className="form-check-input"
@@ -371,6 +372,7 @@ function Customer() {
                         Male
                       </label>
                     </div>
+
                     <div className="form-check form-check-inline">
                       <input
                         className="form-check-input"
@@ -385,33 +387,50 @@ function Customer() {
                         Female
                       </label>
                     </div>
-                  </div>
+
+                    <div className="form-check form-check-inline">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="gender"
+                        id="other"
+                        value="Other"
+                        checked={gender === "Other"}
+                        onChange={(e) => setGender(e.target.value)}
+                      />
+                      <label className="form-check-label" htmlFor="other">
+                        Other
+                      </label>
+                    </div>
+                  </fieldset>
 
                   <div className="mb-2">
                     <label className="form-label d-block">Qualification:</label>
-                    {["10th", "12th", "BA", "Bcom","BCA", "MCA","MA"].map((q) => (
-                      <div key={q} className="form-check form-check-inline">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          id={q}
-                          value={q}
-                          checked={qualification.includes(q)}
-                          onChange={(e) => {
-                            if (e.target.checked) {
-                              setQualification([...qualification, q]);
-                            } else {
-                              setQualification(
-                                qualification.filter((item) => item !== q)
-                              );
-                            }
-                          }}
-                        />
-                        <label className="form-check-label" htmlFor={q}>
-                          {q}
-                        </label>
-                      </div>
-                    ))}
+                    {["10th", "12th", "BA", "Bcom", "BCA", "MCA", "MA"].map(
+                      (q) => (
+                        <div key={q} className="form-check form-check-inline">
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            id={q}
+                            value={q}
+                            checked={qualification.includes(q)}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setQualification([...qualification, q]);
+                              } else {
+                                setQualification(
+                                  qualification.filter((item) => item !== q)
+                                );
+                              }
+                            }}
+                          />
+                          <label className="form-check-label" htmlFor={q}>
+                            {q}
+                          </label>
+                        </div>
+                      )
+                    )}
                   </div>
 
                   <label>

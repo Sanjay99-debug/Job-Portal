@@ -37,7 +37,6 @@
   }
 }
 
-
 /* hover effect for navbar link*/
 /* App.css */
 .hover-effect {
@@ -52,7 +51,7 @@
 }
 
 .hover-effect::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   bottom: 0;
@@ -65,7 +64,6 @@
 .hover-effect:hover::after {
   width: 100%;
 }
-
 
 /* Background overlay */
 .custom-modal-bg {
@@ -177,7 +175,8 @@
   font-weight: bold;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
@@ -194,6 +193,3 @@ footer {
   padding: 10px 20px;
   text-align: center;
 }
-
-
-

@@ -166,7 +166,7 @@ function Header() {
       >
         <div className="container-fluid">
           <Link className="navbar-brand fw-bold" to="/">
-            Job Portal.SS
+            JobifySS
           </Link>
           <button
             className="navbar-toggler"

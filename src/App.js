@@ -38,7 +38,7 @@ function Sidebar() {
   return (
     <div className="navbar navbar-expand-lg bg-dark custom-navbar d-flex flex-column align-items-start" style={{ width: "250px", height: "100vh" }}>
 
-      <div className="p-3">
+      <div className="p-3 ">
         {!localStorage.getItem("token") && (
           <>
             <h4 className="mb-4 text-light"><i className="bi bi-grid-fill me-2 text-light"></i>Navigation</h4>
@@ -204,10 +204,10 @@ function Sidebar() {
 function App() {
   return (
     <BrowserRouter>
-      <div className="d-flex flex-column min-vh-100"> {/* Full height layout */}
+      <div className="d-flex flex-column min-vh-100 "> {/* Full height layout */}
         <Header />
 
-        <div className="d-flex flex-grow-1"> {/* Main content row */}
+        <div className="d-flex flex-grow-1 "> {/* Main content row */}
           <Sidebar />
           <div className="flex-grow-1 p-4">
             <Routes>
